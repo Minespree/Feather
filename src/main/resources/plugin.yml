@@ -1,0 +1,4 @@
+main: net.minespree.feather.FeatherPlugin
+name: FeatherPlugin
+version: ${gitCommit}
+depend: [Wizard,ProtocolLib]

@@ -1,0 +1,48 @@
+image: maven:3.3.9-jdk-8
+
+variables:
+  DOCKER_DRIVER: overlay2
+  PLAYPEN_NAME: feather
+  PACKAGE_PATH: plugins/
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+# Cache decompiled minecraft-server and Spigot-API artifacts
+
+maven-build:
+  stage: build
+  script: "mvn $MAVEN_CLI_OPTS package"
+  cache:
+    paths:
+      - .m2/repository
+  artifacts:
+    paths:
+    - target/*.jar
+    expire_in: 1 week
+
+maven-deploy:
+  stage: deploy
+  script: "mvn $MAVEN_CLI_OPTS deploy"
+  cache:
+    paths:
+      - .m2/repository
+  only:
+  - master
+
+playpen-test:
+  image: playpen-runner
+  stage: test
+  when: manual
+  script: "/home/upload.sh"
+  variables:
+    PP_TYPE: DEV
+
+playpen-deploy:
+  image: playpen-runner
+  stage: deploy
+  when: manual
+  script: "/home/upload.sh"
+  variables:
+    PP_TYPE: PROD
+  only:
+  - master
