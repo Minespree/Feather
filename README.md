@@ -36,7 +36,7 @@ You can find detailed installation instructions for these tools on the [Getting 
 
 This project depends on these modules, so they should also be built and placed on your `plugins/` directory before running Feather:
 
-* [Myers](https://github.com/Minespree/Myers)
+* [Wizard](https://github.com/Minespree/Wizard)
 * [Babel](https://github.com/Minespree/Babel)
 * [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
 
