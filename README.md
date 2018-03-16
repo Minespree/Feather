@@ -46,6 +46,9 @@ You can build this project running the following command:
 mvn package
 ```
 
+> Please note that you might also want to `mvn install` this module as it is required by most Bukkit plugins.
+> You can also deploy it to your own Maven repo to use the GitLab CI Docker image and make distribution easier. [Instructions](https://github.com/Minespree/Docs/blob/master/deploy/PLAYPEN_DEPLOYER.md)
+
 Next, move the produced artifact on `target/` to your Spigot server `plugins/` directory and restart the instance. Once started, add your MongoDB and Redis credentials to the `config.yml` file.
 
 This project also includes a GitLab CI `.gitlab-ci.yml` build config file to automatically build and deploy our artifacts to the main and development networks. This process requires the use of a custom Docker image, but its setup is documented on the [Docs](https://github.com/Minespree/Docs/blob/master/deploy/PLAYPEN_DEPLOYER.md) page.
